@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
+import {
+    StyleSheet,
+    View,
+    Item,
+    FlatList,
+    Text,
+    Pressable,
+} from "react-native";
 
 export const DisplayZone = ({ goals, handleRemoveGoal }) => {
     const styles = StyleSheet.create({
@@ -17,6 +24,7 @@ export const DisplayZone = ({ goals, handleRemoveGoal }) => {
             paddingVertical: 2,
             paddingHorizontal: 10,
             borderRadius: 100,
+            marginVertical: 3,
         },
 
         goalText: {
@@ -37,10 +45,12 @@ export const DisplayZone = ({ goals, handleRemoveGoal }) => {
     });
 
     return (
-        <View style={styles.list}>
-            {goals.map((goal, index) => (
-                <View key={index} style={styles.listItem}>
-                    <Text style={styles.goalText}>- {goal} </Text>
+        <FlatList
+            style={styles.list}
+            data={goals}
+            renderItem={({ item, index }) => (
+                <View style={styles.listItem}>
+                    <Text style={styles.goalText}>- {item} </Text>
                     <Pressable
                         style={styles.deleteButton}
                         onPress={() => handleRemoveGoal(index)}
@@ -48,7 +58,8 @@ export const DisplayZone = ({ goals, handleRemoveGoal }) => {
                         <Text style={styles.deleteButtonText}>x</Text>
                     </Pressable>
                 </View>
-            ))}
-        </View>
+            )}
+            keyExtractor={(_, index) => index.toString()}
+        />
     );
 };
