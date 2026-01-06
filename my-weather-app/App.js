@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { GradientBg } from "./components/GradientBg";
 import { CurrentWeather } from "./components/views/CurrentWeather";
+import { ForecastWeather } from "./components/views/ForecastWeather";
 
 export default function App() {
     return (
@@ -10,6 +11,7 @@ export default function App() {
             <Text style={styles.appTitle}>MeteoSky</Text>
 
             <CurrentWeather />
+            <ForecastWeather />
 
             <StatusBar style='auto' />
         </View>
@@ -20,7 +22,6 @@ const styles = StyleSheet.create({
     container: {
         position: "relative",
         flex: 1,
-        backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
     },
