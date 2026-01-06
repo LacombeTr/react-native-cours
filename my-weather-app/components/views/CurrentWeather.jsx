@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
         color: "#fff",
     },
     tinyLogo: {
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 80,
     },
     cityText: {
         fontSize: 24,
