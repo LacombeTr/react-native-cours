@@ -5,12 +5,10 @@ import { Text, ActivityIndicator, Image, StyleSheet, View } from "react-native";
 
 export const CurrentWeather = () => {
     const { location, errorMsg: locationError, adress } = UseLocation();
-    const {
-        currentWeather,
-        forecast,
-        errorMsg: weatherError,
-    } = UseWeather(location?.coords.latitude, location?.coords.longitude);
-
+    const { currentWeather, errorMsg: weatherError } = UseWeather(
+        location?.coords.latitude,
+        location?.coords.longitude
+    );
     const translatedDescription = useTranslateWeather(
         currentWeather?.description
     );
