@@ -3,9 +3,15 @@ import { useState } from "react";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { CreateZone } from "./components/CreateZone";
 import { DisplayZone } from "./components/DisplayZone";
+import { EditModal } from "./components/EditModal";
 
 export default function App() {
     const [newObjective, setNewObjective] = useState("");
+    const [activeObjective, setActiveObjective] = useState(null);
+    const [editedObjective, setEditedObjective] = useState("");
+
+    const [modalVisible, setModalVisible] = useState(false);
+
     const [goals, setGoals] = useState([
         "Faire les courses",
         "Aller à la salle de sport 3 fois par semaine",
@@ -35,6 +41,12 @@ export default function App() {
         setGoals(updatedGoals);
     };
 
+    const handleEditGoal = (index) => {
+        setActiveObjective(index);
+        setEditedObjective(goals[index]);
+        setModalVisible(true);
+    };
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -50,8 +62,22 @@ export default function App() {
                 handleAddGoal={handleAddGoal}
             />
 
-            <DisplayZone goals={goals} handleRemoveGoal={handleRemoveGoal} />
+            <DisplayZone
+                goals={goals}
+                handleRemoveGoal={handleRemoveGoal}
+                openEditModal={handleEditGoal}
+            />
 
+            <EditModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                goals={goals}
+                setGoals={setGoals}
+                activeObjective={activeObjective}
+                setActiveObjective={setActiveObjective}
+                editedObjective={editedObjective}
+                setEditedObjective={setEditedObjective}
+            />
             <StatusBar style='auto' />
         </View>
     );

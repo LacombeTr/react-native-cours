@@ -7,7 +7,7 @@ import {
     Pressable,
 } from "react-native";
 
-export const DisplayZone = ({ goals, handleRemoveGoal }) => {
+export const DisplayZone = ({ goals, handleRemoveGoal, openEditModal }) => {
     const styles = StyleSheet.create({
         list: {
             marginTop: 20,
@@ -49,15 +49,15 @@ export const DisplayZone = ({ goals, handleRemoveGoal }) => {
             style={styles.list}
             data={goals}
             renderItem={({ item, index }) => (
-                <View style={styles.listItem}>
-                    <Text style={styles.goalText}>- {item} </Text>
+                <Pressable style={styles.listItem} onPress={() => openEditModal(index)}>
+                    <Text style={styles.goalText}>- {item}</Text>
                     <Pressable
                         style={styles.deleteButton}
                         onPress={() => handleRemoveGoal(index)}
                     >
                         <Text style={styles.deleteButtonText}>x</Text>
                     </Pressable>
-                </View>
+                </Pressable>
             )}
             keyExtractor={(_, index) => index.toString()}
         />

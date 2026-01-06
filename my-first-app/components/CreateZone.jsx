@@ -6,6 +6,7 @@ export const CreateZone = ({ newObjective, handleChange, handleAddGoal }) => {
     
         input: {
             height: "100%",
+            width: "50%",
             borderColor: "gray",
             borderRadius: 2,
             borderWidth: 1,
