@@ -40,8 +40,6 @@ export const UseLocation = () => {
             }
         }
 
-        console.log("Location changed:", location);
-        
         if (location && location.coords) {
             getCityFromCoords(
                 location.coords.latitude,
