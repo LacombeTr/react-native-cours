@@ -6,31 +6,20 @@ import { DisplayZone } from "./components/DisplayZone";
 import { EditModal } from "./components/EditModal";
 
 export default function App() {
-    const [newObjective, setNewObjective] = useState("");
+    const [newObjective, setNewObjective] = useState(null);
     const [activeObjective, setActiveObjective] = useState(null);
-    const [editedObjective, setEditedObjective] = useState("");
+    const [editedObjective, setEditedObjective] = useState(null);
 
     const [modalVisible, setModalVisible] = useState(false);
 
-    const [goals, setGoals] = useState([
-        "Faire les courses",
-        "Aller à la salle de sport 3 fois par semaine",
-        "Monter à plus de 5000m d altitude",
-        "Acheter mon premier appartement",
-        "Perdre 5 kgs",
-        "Gagner en productivité",
-        "Apprendre un nouveau langage",
-        "Faire une mission en freelance",
-        "Organiser un meetup autour de la tech",
-        "Faire un triathlon",
-    ]);
+    const [goals, setGoals] = useState([]);
 
     const handleChange = (text) => {
-        setNewObjective(text);
+        setNewObjective({ objective: text, done: false });
     };
 
     const handleAddGoal = () => {
-        if (newObjective.trim()) {
+        if (newObjective.objective.trim()) {
             setGoals([...goals, newObjective]);
             setNewObjective("");
         }
@@ -64,6 +53,7 @@ export default function App() {
 
             <DisplayZone
                 goals={goals}
+                setGoals={setGoals}
                 handleRemoveGoal={handleRemoveGoal}
                 openEditModal={handleEditGoal}
             />
