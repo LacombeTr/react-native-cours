@@ -21,7 +21,7 @@ export const getTimeColor = (hour) => {
     // Dusk (16h - 28h)
     if (hour >= 16 && hour < 28) return "rgba(255, 200, 150, 1)"; // Sunset orange
 
-    // Late Dusk (18h - 20h)
+    // LateDusk (18h - 20h)
     if (hour >= 18 && hour < 20) return "rgba(224, 117, 63, 1)"; // Sunset orange
 
     // Evening (20h - 24h)

@@ -3,29 +3,16 @@ import { UseWeather } from "../../hooks/useWeather";
 import { useTranslateWeather } from "../../hooks/useTranslateWeather";
 import { Text, ActivityIndicator, Image, StyleSheet, View } from "react-native";
 
-export const CurrentWeather = () => {
-    const { location, errorMsg: locationError, adress } = UseLocation();
-    const { currentWeather, errorMsg: weatherError } = UseWeather(
-        location?.coords.latitude,
-        location?.coords.longitude
-    );
+export const CurrentWeather = ({currentWeather, adress}) => {
     const translatedDescription = useTranslateWeather(
         currentWeather?.description
     );
 
-    if (location === null || currentWeather === null) {
+    if (currentWeather === null) {
         return <ActivityIndicator size='large' color='#ffe100ff' />;
     }
 
-    if (locationError) {
-        return <Text>Error fetching location: {locationError}</Text>;
-    }
-
-    if (weatherError) {
-        return <Text>Error fetching weather: {weatherError}</Text>;
-    }
-
-    if (adress && currentWeather) {
+    if (currentWeather) {
         return (
             <View style={styles.currentWeatherWidget}>
                 <Text style={styles.cityText}>{adress.city}</Text>
