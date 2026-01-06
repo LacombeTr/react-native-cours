@@ -11,28 +11,44 @@ export const UseWeather = (latitude, longitude) => {
             const apiKey = process.env.EXPO_PUBLIC_OPEN_WEATHER_API_KEY;
             const baseUrl = process.env.EXPO_PUBLIC_WEATHER_API_BASE_URL;
 
-            const url = `${baseUrl}weather?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&units=metric&appid=${apiKey}`;
+            const urlCurrentWeather = `${baseUrl}weather?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&units=metric&appid=${apiKey}`;
+            const urlForecast = `${baseUrl}forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
 
             try {
-                const response = await axios(url);
-                const data = response.data;
+                const [currentResponse, forecastResponse] = await Promise.all([
+                    axios(urlCurrentWeather),
+                    axios(urlForecast),
+                ]);
 
-                if (response.status === 200) {
+                const currentWeatherData = currentResponse.data;
+
+                if (currentResponse.status === 200) {
                     setCurrentWeather({
-                        weatherId: data.weather[0].id,
-                        main: data.weather[0].main,
-                        description: data.weather[0].description,
-                        icon: data.weather[0].icon,
-                        temp: data.main.temp,
-                        feelsLike: data.main.feels_like,
-                        humidity: data.main.humidity,
-                        windSpeed: data.wind.speed,
-                        windAngle: data.wind.deg,
-                        cloudCover: data.clouds.all,
+                        weatherId: currentWeatherData.weather[0].id,
+                        main: currentWeatherData.weather[0].main,
+                        description: currentWeatherData.weather[0].description,
+                        icon: currentWeatherData.weather[0].icon,
+                        temp: currentWeatherData.main.temp,
+                        feelsLike: currentWeatherData.main.feels_like,
+                        humidity: currentWeatherData.main.humidity,
+                        windSpeed: currentWeatherData.wind.speed,
+                        windAngle: currentWeatherData.wind.deg,
+                        cloudCover: currentWeatherData.clouds.all,
                     });
                 } else {
                     setErrorMsg(
-                        data.message || "Failed to fetch current weather data"
+                        currentWeatherData.message ||
+                            "Failed to fetch current weather data"
+                    );
+                }
+
+                const forecastData = forecastResponse.data;
+
+                if (forecastResponse.status === 200) {
+                    setForecast(forecastData.list);
+                } else {
+                    setErrorMsg(
+                        forecastData.message || "Failed to fetch forecast data"
                     );
                 }
             } catch (error) {
@@ -43,6 +59,7 @@ export const UseWeather = (latitude, longitude) => {
         if (latitude && longitude) {
             fetchWeather(latitude, longitude);
         }
+
     }, [latitude, longitude]);
 
     return {
