@@ -1,7 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { UseLocation } from "./hooks/useLocation";
-import { UseWeather } from "./hooks/useWeather";
 import { GradientBg } from "./components/GradientBg";
 import { CurrentWeather } from "./components/views/CurrentWeather";
 
