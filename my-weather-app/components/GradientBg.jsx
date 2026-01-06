@@ -1,12 +1,25 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
+import { UseLocation } from "../hooks/useLocation";
+import { UseWeather } from "../hooks/useWeather";
+import { getWeatherColor } from "../utils/colorMappers/getWeatherColor";
+import { getTimeColor } from "../utils/colorMappers/getTimeColor";
 
 export const GradientBg = () => {
+    const { location } = UseLocation();
+    const { currentWeather } = UseWeather(
+        location?.coords?.latitude,
+        location?.coords?.longitude
+    );
+
+    const weatherColor = getWeatherColor(currentWeather?.weatherId);
+    const timeColor = getTimeColor();
+
     return (
         <LinearGradient
             start={{ x: 0, y: 1 }}
             end={{ x: 0, y: 0.4 }}
-            colors={["rgba(255, 255, 255, 1)", "rgba(150, 216, 245, 1)"]}
+            colors={[timeColor, weatherColor]}
             style={styles.background}
         />
     );
