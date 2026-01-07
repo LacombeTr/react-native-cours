@@ -1,30 +1,62 @@
 {
-  "expo": {
-    "name": "cocktail-app",
-    "slug": "cocktail-app",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "expo": {
+        "name": "cocktail-app",
+        "slug": "cocktail-app",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "newArchEnabled": true,
+        "splash": {
+            "image": "./assets/splash-icon.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "edgeToEdgeEnabled": true,
+            "predictiveBackGestureEnabled": false
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "plugins": [
+            [
+                "expo-font",
+                {
+                    "fonts": ["./assets/fonts/Moonshine.otf"],
+                    "android": {
+                        "fonts": [
+                            {
+                                "fontFamily": "Inter",
+                                "fontDefinitions": [
+                                    {
+                                        "path": "./assets/fonts/Inter-BoldItalic.ttf",
+                                        "weight": 700,
+                                        "style": "italic"
+                                    },
+                                    {
+                                        "path": "./assets/fonts/Inter-Bold.ttf",
+                                        "weight": 700
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "ios": {
+                        "fonts": [
+                            "./assets/fonts/Inter-Bold.ttf",
+                            "./assets/fonts/Inter-BoldItalic.ttf"
+                        ]
+                    }
+                }
+            ]
+        ]
     }
-  }
 }
