@@ -4,12 +4,14 @@ import {
     Text,
     StyleSheet,
     FlatList,
-    TouchableOpacity,
     ActivityIndicator,
+    Pressable,
 } from "react-native";
 import { UseCocktails } from "../hooks/UseCocktails";
 import { CocktailItem } from "../components/CocktailItem";
 import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { BackgroundImage } from "../components/BackgroundImage";
 
 export const HomeScreen = () => {
     const navigation = useNavigation<any>();
@@ -34,7 +36,7 @@ export const HomeScreen = () => {
     }
 
     return (
-        <>
+        <BackgroundImage>
             <View style={styles.container}>
                 <Text style={styles.title}>Cocktail App</Text>
                 <FlatList
@@ -46,25 +48,29 @@ export const HomeScreen = () => {
                     ListFooterComponent={renderFooter}
                     contentContainerStyle={styles.listContent}
                 />
-                <Button
-                    title='Go to Search'
+                <Pressable
                     onPress={() => navigation.navigate("Search")}
-                />
-                <Button
-                    title='Go to Recipe'
-                    onPress={() =>
-                        navigation.navigate("Recipe", { recipeId: "123" })
-                    }
-                />
+                    style={styles.searchButton}
+                >
+                    <Ionicons name='search' size={30} color='#fff' />
+                </Pressable>
             </View>
-        </>
+        </BackgroundImage>
     );
 };
 
 const styles = StyleSheet.create({
+    searchButton: {
+        position: "absolute",
+        top: 20,
+        right: 20,
+        marginTop: 10,
+    },
     container: {
         flex: 1,
-        paddingTop: 32,
+        paddingTop: 96,
+        paddingBottom: 32,
+        paddingHorizontal: 32,
     },
     loadingContainer: {
         flex: 1,
@@ -72,36 +78,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     title: {
-        fontSize: 24,
+        fontFamily: "Dechora",
+        color: "#fff",
         fontWeight: "bold",
+        fontSize: 48,
         marginBottom: 10,
         textTransform: "uppercase",
         textAlign: "center",
-    },
-    count: {
-        textAlign: "center",
-        marginBottom: 10,
-        color: "#666",
+        borderBottomWidth: 2,
+        borderBottomColor: "#fff",
+        paddingBottom: 10,
     },
     listContent: {
         paddingHorizontal: 16,
-    },
-    cocktailItem: {
-        backgroundColor: "#f9f9f9",
-        padding: 16,
-        marginVertical: 4,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#eee",
-    },
-    cocktailName: {
-        fontSize: 16,
-        fontWeight: "600",
-    },
-    cocktailCategory: {
-        fontSize: 12,
-        color: "#666",
-        marginTop: 4,
     },
     footer: {
         padding: 20,

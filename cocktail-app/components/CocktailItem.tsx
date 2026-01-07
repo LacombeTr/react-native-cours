@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "#ccc",
     },
     cocktailName: {
-        color: "#333",
+        fontFamily: "Moonshine",
+        color: "#fff",
         fontSize: 18,
         fontWeight: "bold",
     },
