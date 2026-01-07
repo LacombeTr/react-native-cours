@@ -3,7 +3,7 @@ import { UseWeather } from "../../hooks/useWeather";
 import { useTranslateWeather } from "../../hooks/useTranslateWeather";
 import { Text, ActivityIndicator, Image, StyleSheet, View } from "react-native";
 
-export const CurrentWeather = ({currentWeather, adress}) => {
+export const CurrentWeather = ({ currentWeather, adress }) => {
     const translatedDescription = useTranslateWeather(
         currentWeather?.description
     );

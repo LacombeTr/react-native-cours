@@ -7,7 +7,7 @@ import {
     RefreshControl,
     ActivityIndicator,
 } from "react-native";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { UseLocation } from "./hooks/useLocation";
 import { UseWeather } from "./hooks/useWeather";
 import { GradientBg } from "./components/GradientBg";
@@ -16,15 +16,25 @@ import { ForecastWeather } from "./components/views/ForecastWeather";
 
 export default function App() {
     const [refreshing, setRefreshing] = useState(false);
+    const [refreshKey, setRefreshKey] = useState(0);
+    const [lastUpdate, setLastUpdate] = useState(null);
 
-    const { location, adress } = UseLocation();
-    const {
-        currentWeather,
-        forecast,
-    } = UseWeather(location?.coords.latitude, location?.coords.longitude);
+    const { location, adress } = UseLocation(refreshKey);
+    const { currentWeather, forecast } = UseWeather(
+        location?.coords.latitude,
+        location?.coords.longitude,
+        refreshKey
+    );
+
+    useEffect(() => {
+        if (currentWeather) {
+            setLastUpdate(new Date());
+        }
+    }, [currentWeather]);
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
+        setRefreshKey((prev) => prev + 1);
 
         setTimeout(() => {
             setRefreshing(false);
@@ -40,7 +50,8 @@ export default function App() {
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={onRefresh}
-                        tintColor='#fff'
+                        tintColor='#ffe100ff'
+                        progressViewOffset={50}
                     />
                 }
             >
@@ -54,7 +65,19 @@ export default function App() {
                         />
                         <ForecastWeather forecast={forecast} />
                     </>
-                ) : <ActivityIndicator size='large' color='#ffe100ff' />}
+                ) : (
+                    <ActivityIndicator size='large' color='#ffe100ff' />
+                )}
+
+                {lastUpdate && (
+                    <Text style={styles.lastUpdate}>
+                        Mis à jour à{" "}
+                        {lastUpdate.toLocaleTimeString("fr-FR", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        })}
+                    </Text>
+                )}
             </ScrollView>
 
             <StatusBar style='auto' />
@@ -79,5 +102,12 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 20,
         color: "#fff",
+    },
+
+    lastUpdate: {
+        fontSize: 12,
+        color: "rgba(255, 255, 255, 0.7)",
+        marginTop: 20,
+        marginBottom: 30,
     },
 });
