@@ -1,6 +1,8 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+    createNativeStackNavigator,
+} from "@react-navigation/native-stack";
 import { HomeScreen } from "./screens/HomeScreen";
 import { SearchScreen } from "./screens/SearchScreen";
 import { RecipeScreen } from "./screens/RecipeScreen";
